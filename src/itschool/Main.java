@@ -1,6 +1,5 @@
 package itschool;
 
-import javax.print.DocFlavor;
 import java.io.*;
 import java.util.Scanner;
 
@@ -11,12 +10,9 @@ public class Main {
         String login = "";
         String RegOrLog = "";
         String password = "";
-        /*
+        String ReadLogin = "";
 
-        */
-
-
-        System.out.print("1 - регистрация\n2 - вход\n");
+        System.out.println("1 - Registration\n2 - LogIn\n");
         RegOrLog = in.next();
         switch(RegOrLog) {
             case "1": {
@@ -30,6 +26,7 @@ public class Main {
                     bw = new BufferedWriter(new FileWriter("LogAndPass.txt"));
                 } catch (IOException e) {
                     e.printStackTrace();
+                    return;
                 }
 
                 try {
@@ -41,6 +38,7 @@ public class Main {
 
                     } catch (IOException e) {
                         e.printStackTrace();
+                        return;
                     }
 
                 } finally {
@@ -48,6 +46,7 @@ public class Main {
                         bw.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        return;
                     }
                 }
                 break;
@@ -63,22 +62,26 @@ public class Main {
                     br = new BufferedReader(new FileReader("LogAndPass.txt"));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                    return;
                 }
 
                 try {
                     StringBuilder sb = new StringBuilder();
                     String line = null;
                     try {
-                        String ReadLogin = br.readLine();
-                        ReadLogin = ReadLogin.substring(ReadLogin.indexOf(" ") + 1, ReadLogin.length());
+                        ReadLogin = br.readLine();
+                        ReadLogin = ReadLogin.substring(ReadLogin.indexOf(" ") + 1).trim();
                         String ReadPassword = br.readLine();
-                        ReadPassword = ReadPassword.substring(ReadPassword.indexOf(" ") + 1, ReadPassword.length());
+                        ReadPassword = ReadPassword.substring(ReadPassword.indexOf(" ") + 1).trim();
                         if(login.equals(ReadLogin) && password.equals(ReadPassword))
                         {
-                            System.out.println("Molodec!");
+                            System.out.println("Login successful!");
+                        } else {
+                            System.out.println("Login unsuccessful");
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
+                        return;
                     }
 
                 } finally {
@@ -86,6 +89,7 @@ public class Main {
                         br.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        return;
                     }
                 }
                 break;
